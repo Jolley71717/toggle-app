@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Toggle List</title>
+    <link href="toggle.css" rel="stylesheet" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous" />
+</head>
+<body>
+
+<p>Back to home <a href="/">here</a></p>
+
+<div class="container">
+    <div class="row">
+        <div class="col h5">
+            Module Name
+        </div>
+        <div class="col h5">
+            Dependencies
+        </div>
+        <div class="col h5">
+            Version
+        </div>
+        <div class="col h5">
+            Type
+        </div>
+        <div class="col h5">
+            Enabled?
+        </div>
+    </div>
+    <form action="#" th:action="@{/toggles}" th:object="${toggleForm}" method="post">
+    <div class="row" th:each="toggle, status: *{toggles}">
+
+        <input name="_features" type="hidden" value="on" />
+
+        <input type="hidden" th:field="*{toggles[__${status.index}__].id}" />
+
+        <div class="col">
+            <span th:text="${toggle.getModule()}"></span>
+        </div>
+
+        <div class="col">
+            <span th:if="${toggle.dependencies.empty}">
+                None
+            </span>
+            <ol th:each="dependency: ${toggle.dependencies}">
+                <li th:text="${dependency.getModule()}" class="list-inline-item"></li>
+            </ol>
+        </div>
+        <div class="col">
+            <span th:text="${toggle.getVersion()}"></span>
+        </div>
+
+        <div class="col">
+            <span th:text="${toggle.getType()}"></span>
+        </div>
+        <div class="col">
+            <div class="onoffswitch">
+                <input  th:class="toggle" type="checkbox" th:field="*{toggles[__${status.index}__].enabled}" th:value="${toggle.enabled}" />
+            </div>
+        </div>
+    </div>
+
+        <button type="submit" class="btn btn-success">Submit</button>
+        <button type="reset" class="btn btn-success">Reset</button>
+    </form>
+</div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+</body>
+</html>
