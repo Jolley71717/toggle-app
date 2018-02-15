@@ -1,6 +1,6 @@
-package gov.mt.dnrc.toggle.software.repository;
+package gov.mt.dnrc.toggle.toggle.repository;
 
-import gov.mt.dnrc.toggle.software.models.Software;
+import gov.mt.dnrc.toggle.toggle.model.Toggle;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -10,5 +10,5 @@ import org.springframework.data.repository.CrudRepository;
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface SoftwareRepository  extends CrudRepository<Software, Long> {
+public interface IToggleRepository extends CrudRepository<Toggle, Long> {
 }

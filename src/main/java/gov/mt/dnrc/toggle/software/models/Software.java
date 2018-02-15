@@ -10,6 +10,14 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
+/**
+ * Software Entity used to store information
+ * on software in a very simple fashion.
+ *
+ * @author Brad Villa
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 @Entity
 public class Software implements Serializable {
 

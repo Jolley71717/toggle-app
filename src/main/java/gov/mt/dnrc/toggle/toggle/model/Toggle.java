@@ -1,9 +1,18 @@
-package gov.mt.dnrc.toggle.toggle;
+package gov.mt.dnrc.toggle.toggle.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * Entity object for toggles. The objects goal is to store information on a
+ * toggleable feature. In the future I may separate this to feature that implements
+ * a toggleable class.
+ *
+ * @author Brad Villa
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 @Entity
 public class Toggle implements Serializable {
 
