@@ -2,15 +2,13 @@ package gov.mt.dnrc.toggle.software.services;
 
 import com.google.common.collect.Lists;
 import gov.mt.dnrc.toggle.core.service.AbstractGenericService;
-import gov.mt.dnrc.toggle.core.util.QRUtililty;
+import gov.mt.dnrc.toggle.core.util.QRUtility;
 import gov.mt.dnrc.toggle.software.models.Software;
 import gov.mt.dnrc.toggle.software.repository.SoftwareRepository;
 import gov.mt.dnrc.toggle.software.services.spi.ISoftwareService;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,10 +35,19 @@ public class SoftwareService extends AbstractGenericService<Software, Long> impl
         this.softwareRepository = softwareRepository;
     }
 
+    /**
+     * Retrieves the software record from the database
+     *
+     * @param id The id or primary key of a database table.
+     * @return returns the software from the database.
+     */
     @Override
     public Software retrieve(Long id) {
         Software software = super.retrieve(id);
-        software.setQrCode(QRUtililty.retrieveQRCodeImage(software));
+
+        // Generate the QR Code from the string data.
+        software.setQrCode(QRUtility.retrieveQRCodeImage(software));
+
         return software;
     }
 
@@ -52,15 +59,16 @@ public class SoftwareService extends AbstractGenericService<Software, Long> impl
     @Override
     public List<Software> retrieveAll() {
 
-        List<Software> softwares = new ArrayList<>();
+        List<Software> softwareArrayList = new ArrayList<>();
 
-        for(Software software: softwareRepository.findAll()) {
-            software.setQrCode(QRUtililty.retrieveQRCodeImage(software));
-            softwares.add(software);
-        }
+        // For each software, set the QR code and add it to the returned array list.
+        softwareRepository.findAll().forEach(software -> {
+            software.setQrCode(QRUtility.retrieveQRCodeImage(software));
+            softwareArrayList.add(software);
+        });
 
         // Generates the software.
-        return Lists.newArrayList(softwares);
+        return Lists.newArrayList(softwareArrayList);
     }
 
 }
