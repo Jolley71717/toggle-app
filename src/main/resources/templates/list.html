@@ -22,12 +22,14 @@
             <th>Software Name</th>
             <th>Version</th>
             <th>Vendor</th>
+            <th>QR</th>
         </tr>
         <tr th:each="software: ${softwares}">
             <form action="#" th:action="@{/software/edit/} + ${software.id}" method="get">
                 <td th:text="${software.name}"></td>
                 <td th:text="${software.version}"></td>
                 <td th:text="${software.vendor}"></td>
+                <td><img alt="Image" th:attr="src=@{${software.qrCode}}" width="50" height="50"/></td>
                 <td><button type="submit" data-toggle="tooltip" data-placement="right" th:title="Edit + ' ' + ${software.name}">Edit</button>
 
                 </td>

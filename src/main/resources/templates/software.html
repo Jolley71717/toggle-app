@@ -8,6 +8,12 @@
 <body>
 <p>Back to software <a href="/software">here</a></p>
 <form action="#" th:action="@{/software/save/}" th:object="${software}" method="post">
+
+    <div class="form-group">
+        <img alt="Image" th:attr="src=@{${software.qrCode}}" width="250" height="250"/>
+    </div>
+    <br/>
+
     <input type="hidden" th:field="*{id}" />
 
     <div class="form-group">

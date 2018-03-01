@@ -2,10 +2,7 @@ package gov.mt.dnrc.toggle.software.models;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -38,6 +35,9 @@ public class Software implements Serializable {
     @Size(max = 50)
     @Column
     private String vendor;
+
+    @Transient
+    private String qrCode;
 
     public Software() {
 
@@ -85,6 +85,14 @@ public class Software implements Serializable {
         this.vendor = vendor;
     }
 
+    public String getQrCode() {
+        return qrCode;
+    }
+
+    public void setQrCode(String qrCode) {
+        this.qrCode = qrCode;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -106,5 +114,15 @@ public class Software implements Serializable {
         result = 31 * result + (getVersion() != null ? getVersion().hashCode() : 0);
         result = 31 * result + (getVendor() != null ? getVendor().hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Software{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", version='" + version + '\'' +
+                ", vendor='" + vendor + '\'' +
+                '}';
     }
 }
