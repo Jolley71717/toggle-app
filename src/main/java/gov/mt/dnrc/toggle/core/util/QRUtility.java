@@ -6,8 +6,8 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.tomcat.util.codec.binary.Base64;
 
 import javax.imageio.ImageIO;
@@ -15,6 +15,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -27,7 +28,7 @@ import java.util.Map;
  */
 public class QRUtility {
 
-    private static final Logger logger = LogManager.getLogger(QRUtility.class);
+    private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
     private static final String QR_IMAGE_TYPE = "png";
     private static final String CHARSET_TYPE = "UTF-8";

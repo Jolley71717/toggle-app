@@ -10,7 +10,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.validation.Valid;
+import java.lang.invoke.MethodHandles;
 
 /**
  * Controller that will handle the software views
@@ -21,6 +25,8 @@ import javax.validation.Valid;
  */
 @Controller
 public class SoftwareController {
+
+    private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
     private static final String SOFTWARE_VIEW = "software";
     private static final String SOFTWARE_LIST_VIEW = "list";
@@ -37,8 +43,10 @@ public class SoftwareController {
     @RequestMapping("/software")
     @FeatureToggle(feature = "Software Tracking")
     public String retrieveAll(Model model) {
+        logger.trace("Retrieving all of the software...");
 
         model.addAttribute("softwares", softwareService.retrieveAll());
+
         return SOFTWARE_LIST_VIEW;
     }
 
@@ -52,13 +60,18 @@ public class SoftwareController {
     @RequestMapping("/software/save")
     @FeatureToggle(feature = "Software Tracking")
     public String save(@Valid Software software, BindingResult bindingResult, Model model) {
+        logger.trace("Attempting to save software...");
 
         // Return the user to the view if the pojo validation failed.
         if (bindingResult.hasErrors()) {
+            logger.trace("software save had errors: {}", bindingResult.getFieldErrors());
             return SOFTWARE_VIEW;
         }
 
         softwareService.save(software);
+
+        logger.info("Saved software. {}", software.toString());
+
         return retrieveAll(model);
     }
 

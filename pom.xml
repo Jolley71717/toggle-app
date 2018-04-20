@@ -7,6 +7,7 @@
 	<artifactId>toggle</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 
+    <packaging>jar</packaging>
 	<name>toggle</name>
 	<description>Spring Boot Toggle Demonstration</description>
 
@@ -38,6 +39,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -75,9 +82,15 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+            <version>1.5.9.RELEASE</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>23.3-jre</version>
+            <version>23.5-jre</version>
         </dependency>
 
         <dependency>

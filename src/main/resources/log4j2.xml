@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration shutdownHook="disable" monitorInterval="30">
+	<Appenders>
+		<Console name="ConsoleAppender" target="System.out">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+
+		<!-- Default location is the bin folder or whichever location the tomcat is started from. -->
+		<RollingFile name="RollingFileAppender" fileName="logs/toggle.log" filePattern="logs/toggle/toggle-%d{MM-dd-yyyy}.log.gz">
+			<PatternLayout>
+				<pattern>%d %p %c{1.} [%t] %m%n</pattern>
+			</PatternLayout>
+			<TimeBasedTriggeringPolicy />
+			<DefaultRolloverStrategy max="31" />
+		</RollingFile>
+    </Appenders>
+
+	<Loggers>
+		<!-- Application Logger -->
+		<Logger name="gov.mt.dnrc.toggle" level="TRACE" additivity="false">
+			<Appender-Ref ref="ConsoleAppender" />
+			<Appender-Ref ref="RollingFileAppender" />
+		</Logger>
+
+        <Logger name="org.thymeleaf" level="ERROR" additivity="false">
+            <Appender-Ref ref="ConsoleAppender" />
+            <Appender-Ref ref="RollingFileAppender" />
+        </Logger>
+
+        <Logger name="org.springframework" level="ERROR" additivity="false">
+            <Appender-Ref ref="ConsoleAppender" />
+            <Appender-Ref ref="RollingFileAppender" />
+        </Logger>
+
+        <!-- Remember that Show SQL is a DEBUG level message. -->
+        <Logger name="org.hibernate" level="ERROR" additivity="false">
+            <Appender-Ref ref="ConsoleAppender" />
+            <Appender-Ref ref="RollingFileAppender" />
+        </Logger>
+
+		<Root level="DEBUG">
+			<!-- No need for console appender on production. -->
+			<Appender-Ref ref="ConsoleAppender" />
+			<Appender-Ref ref="RollingFileAppender" />
+		</Root>
+	</Loggers>
+
+</Configuration>
